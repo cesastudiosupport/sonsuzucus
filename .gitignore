@@ -1,0 +1,12 @@
+# Build outputs
+app/bin/
+app/obj/
+.claude/
+
+# Android signing secrets
+*.jks
+*.keystore
+*.p12
+*.pfx
+signing.properties
+play-store/signing/
