@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-android;net10.0-windows10.0.19041.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SonsuzUcus</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <MauiVersion>10.0.20</MauiVersion>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <CheckEolWorkloads>false</CheckEolWorkloads>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+
+    <ApplicationTitle>Sonsuz Uçuş</ApplicationTitle>
+    <ApplicationId>com.senisim.sonsuzucus</ApplicationId>
+    <ApplicationDisplayVersion>1.1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>3</ApplicationVersion>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
+    <WindowsPackageType>None</WindowsPackageType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-android' and '$(Configuration)' == 'Release'">
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <PublishTrimmed>false</PublishTrimmed>
+    <AndroidUseAssemblyStore>false</AndroidUseAssemblyStore>
+    <AndroidEnableMarshalMethods>false</AndroidEnableMarshalMethods>
+    <AndroidPackageFormats>aab;apk</AndroidPackageFormats>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\**\*.cs" />
+    <Content Remove="Components\**\*" />
+    <None Remove="Components\**\*" />
+    <None Remove="_Imports.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#080A0F" />
+    <MauiSplashScreen Include="Resources\Splash\flight_splash.png" Color="#080A0F" BaseSize="180,180" Resize="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\game\game.css" LogicalName="SonsuzUcus.game.css" />
+    <EmbeddedResource Include="wwwroot\game\game.js" LogicalName="SonsuzUcus.game.js" />
+    <EmbeddedResource Include="wwwroot\game\flight-director.js" LogicalName="SonsuzUcus.flight-director.js" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\ship_idle.png" LogicalName="SonsuzUcus.asset.ship_idle.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\ship_thrust.png" LogicalName="SonsuzUcus.asset.ship_thrust.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\ship_boost.png" LogicalName="SonsuzUcus.asset.ship_boost.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\crystal.png" LogicalName="SonsuzUcus.asset.crystal.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\fuel.png" LogicalName="SonsuzUcus.asset.fuel.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\drone.png" LogicalName="SonsuzUcus.asset.drone.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\gate_arc.png" LogicalName="SonsuzUcus.asset.gate_arc.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\shield_ring.png" LogicalName="SonsuzUcus.asset.shield_ring.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\boost_ring.png" LogicalName="SonsuzUcus.asset.boost_ring.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\explosion.png" LogicalName="SonsuzUcus.asset.explosion.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\smoke_large.png" LogicalName="SonsuzUcus.asset.smoke_large.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\smoke_medium.png" LogicalName="SonsuzUcus.asset.smoke_medium.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\smoke_small.png" LogicalName="SonsuzUcus.asset.smoke_small.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\parallax_cave_1600.webp" LogicalName="SonsuzUcus.asset.parallax_cave.webp" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\deep-space-v2.png" LogicalName="SonsuzUcus.asset.deep-space-v2.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\generated\volcanic-cavern-v2.png" LogicalName="SonsuzUcus.asset.volcanic-cavern-v2.png" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\boost.wav" LogicalName="SonsuzUcus.audio.boost.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\coin.wav" LogicalName="SonsuzUcus.audio.coin.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\engine_idle.wav" LogicalName="SonsuzUcus.audio.engine_idle.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\engine_thrust.wav" LogicalName="SonsuzUcus.audio.engine_thrust.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\fuel.wav" LogicalName="SonsuzUcus.audio.fuel.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\fuel_warn.wav" LogicalName="SonsuzUcus.audio.fuel_warn.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\ground_crash.wav" LogicalName="SonsuzUcus.audio.ground_crash.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\idle_down.wav" LogicalName="SonsuzUcus.audio.idle_down.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\launch.wav" LogicalName="SonsuzUcus.audio.launch.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\magnet.wav" LogicalName="SonsuzUcus.audio.magnet.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\music_arcade_loop.wav" LogicalName="SonsuzUcus.audio.music_arcade_loop.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\perfect.wav" LogicalName="SonsuzUcus.audio.perfect.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\gate_pass.wav" LogicalName="SonsuzUcus.audio.gate_pass.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\stage_complete.wav" LogicalName="SonsuzUcus.audio.stage_complete.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\shield.wav" LogicalName="SonsuzUcus.audio.shield.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\tap.wav" LogicalName="SonsuzUcus.audio.tap.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\thrust_on.wav" LogicalName="SonsuzUcus.audio.thrust_on.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\wall_hit.wav" LogicalName="SonsuzUcus.audio.wall_hit.wav" />
+    <EmbeddedResource Include="wwwroot\game\assets\audio\warn.wav" LogicalName="SonsuzUcus.audio.warn.wav" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Ads" Version="125.4.0.2" Condition="'$(TargetFramework)' == 'net10.0-android'" />
+  </ItemGroup>
+
+</Project>
+

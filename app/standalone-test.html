@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Sonsuz Uçuş - tarayıcı testi</title>
+<link rel="stylesheet" href="wwwroot/game/game.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="cv"></canvas>
+
+  <div class="hud">
+    <div class="hud-main">
+      <span>MESAFE</span>
+      <b><i id="dist">0</i><small>m</small></b>
+    </div>
+    <div class="hud-mid">
+      <span>SKOR</span>
+      <b id="score">0</b>
+    </div>
+    <div class="hud-side">
+      <span>REKOR <b id="best">0</b></span>
+      <span>KRİSTAL <b id="coinhud">0</b></span>
+    </div>
+  </div>
+
+  <div class="combo-pill" id="combohud">SERİ HAZIR</div>
+  <div class="fuel-pill">
+    <span>YAKIT <b id="fuelText">100%</b></span>
+    <i><b id="fuelFill"></b></i>
+  </div>
+  <div class="health-pill">
+    <span>GÖVDE <b id="hpText">3/3</b></span>
+    <i><b id="hpFill"></b></i>
+  </div>
+
+  <div class="mission-strip">
+    <div>
+      <span id="biome">Buz Mağarası</span>
+      <b id="missionText">Görev hazırlanıyor</b>
+    </div>
+    <i><b id="missionFill"></b></i>
+  </div>
+
+  <button class="snd" id="snd" aria-label="Ses">🔊</button>
+  <button class="boost-btn" id="boostBtn" aria-label="Overdrive">
+    <span>OVERDRIVE</span>
+    <b id="boostText">0%</b>
+  </button>
+
+  <div class="banner" id="banner"></div>
+  <div class="flash" id="flash"></div>
+
+  <div class="overlay show" id="menu">
+    <section class="menu-hero">
+      <div class="menu-kicker">ARCADE KEŞİF KOŞUSU</div>
+      <h1>SONSUZ UÇUŞ</h1>
+      <div class="launch-visual" aria-hidden="true">
+        <span class="launch-ring ring-a"></span>
+        <span class="launch-ring ring-b"></span>
+        <span class="ship-preview"><i class="preview-flame"></i><i class="preview-wing top"></i><i class="preview-body"></i><i class="preview-canopy"></i><i class="preview-wing bottom"></i></span>
+      </div>
+      <p class="sub">Dikey veya yatay oyna. Kapılardan geç, kristal rotalarını topla, yakın geçişlerle overdrive doldur.</p>
+      <div class="menu-stats">
+        <div><span>EN İYİ</span><b id="menuBest">0</b></div>
+        <div><span>KOŞU</span><b id="menuRuns">0</b></div>
+        <div><span>TOPLAM</span><b id="menuMeters">0m</b></div>
+      </div>
+    </section>
+
+    <section class="menu-panel">
+      <div class="wallet">💎 <b id="wallet">0</b></div>
+      <div class="pilot-card">
+        <span>PİLOT RÜTBESİ</span>
+        <b id="pilotRank">Çaylak Pilot</b>
+        <em id="pilotXp">0 XP</em>
+        <i><b id="pilotXpFill"></b></i>
+      </div>
+      <div class="daily-card">
+        <div>
+          <span id="dailyTitle">Günlük Rota</span>
+          <b id="dailyMeta">Bugünün hedefi hazırlanıyor</b>
+        </div>
+        <strong id="dailyProgress">0/0</strong>
+        <i><b id="dailyFill"></b></i>
+      </div>
+      <div class="briefing">
+        <span><b>Basılı tut</b> yüksel</span>
+        <span><b>Bırak</b> süzül</span>
+        <span><b>Overdrive</b> skor çarpanı</span>
+      </div>
+      <div class="menu-actions">
+        <button class="help-btn" id="guideOpen">Nasıl oynanır?</button>
+        <button class="help-btn" id="privacyOpen">Gizlilik</button>
+      </div>
+      <div class="shop" id="shop">
+        <div class="shop-title">Gemi</div>
+        <div class="shop-row" id="ship-row"></div>
+        <div class="shop-title">İz</div>
+        <div class="shop-row" id="trail-row"></div>
+      </div>
+      <div class="tap-hint">▶ Kalkış için dokun</div>
+    </section>
+  </div>
+
+  <div class="overlay guide" id="guide">
+    <section class="guide-panel">
+      <div class="menu-kicker">KISA REHBER</div>
+      <h2>Nasıl oynanır?</h2>
+      <div class="guide-grid">
+        <div><b>Basılı tut</b><span>Gemi yükselir, yakıt daha hızlı azalır.</span></div>
+        <div><b>Bırak</b><span>Gemi süzülür, yakıt daha yavaş harcanır.</span></div>
+        <div><b>Kapı</b><span>Ortadan geçersen seri ve skor kazanırsın.</span></div>
+        <div><b>Kristal</b><span>Para ve seri verir; hangarda kozmetik açar.</span></div>
+        <div><b>Yakıt</b><span>Depoyu doldurur. Yakıt biterse yükselme zayıflar.</span></div>
+        <div><b>Overdrive</b><span>Doluysa sağ alttan bas; kısa süre skor ve hız artar.</span></div>
+        <div><b>Gövde</b><span>3 hasar hakkın var. Kalkan hasarı emer.</span></div>
+        <div><b>XP</b><span>Her tur pilot rütbeni kalıcı olarak yükseltir.</span></div>
+      </div>
+      <button class="primary-btn" id="guideOk">Anladım</button>
+    </section>
+  </div>
+
+  <div class="overlay guide" id="privacy">
+    <section class="guide-panel">
+      <div class="menu-kicker">YAYIN HAZIRLIĞI</div>
+      <h2>Gizlilik</h2>
+      <div class="privacy-copy">
+        <p>İlerleme, rekor, XP ve kozmetik seçimleri bu cihazda yerel olarak saklanır.</p>
+        <p>Reklam gösterimi için Google Mobile Ads SDK kullanılır. Yayına çıkmadan önce AdMob, Data Safety ve gizlilik politikası bilgileri gerçek hesapla tamamlanmalıdır.</p>
+        <p>Çocukları hedefleyen bir yayın planlanırsa yaş ekranı, kişiselleştirilmemiş reklam ve aile politikası ayarları ayrıca yapılandırılmalıdır.</p>
+      </div>
+      <button class="primary-btn" id="privacyOk">Anladım</button>
+    </section>
+  </div>
+
+  <div class="overlay" id="over">
+    <div class="crash">GÖREV BİTTİ</div>
+    <div class="big" id="final">0<small>m</small></div>
+    <div class="grade-badge" id="finalGrade">A</div>
+    <div class="rec" id="rec"></div>
+    <div class="result-grid">
+      <div><span>Skor</span><b id="finalScore">0</b></div>
+      <div><span>Kapı</span><b id="finalGates">0</b></div>
+      <div><span>Yakın geçiş</span><b id="finalNear">0</b></div>
+      <div><span>En iyi seri</span><b id="finalCombo">0</b></div>
+      <div><span>Görev</span><b id="finalMissions">0</b></div>
+      <div><span>İlerleme</span><b id="finalMission">0%</b></div>
+      <div><span>XP</span><b id="finalXp">+0</b></div>
+      <div><span>Rütbe</span><b id="finalRank">Çaylak Pilot</b></div>
+    </div>
+    <div class="coach-card">
+      <b id="runDelta">Rekor analizi hazır</b>
+      <span id="coachText">Bir sonraki koşu için rota analizi hazırlanıyor.</span>
+    </div>
+    <button class="reward-btn" id="rewardAdBtn">Reklam izle · sonraki koşuya kalkan</button>
+    <div class="tap-hint" id="over-hint">Tekrar için dokun</div>
+    <button class="menu-btn" id="menu-btn">🛒 Hangar</button>
+  </div>
+</div>
+<script src="wwwroot/game/game.js"></script>
+</body>
+</html>

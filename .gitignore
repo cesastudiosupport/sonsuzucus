@@ -10,3 +10,17 @@ app/obj/
 *.pfx
 signing.properties
 play-store/signing/
+
+# Local packages, diagnostics and runtime caches
+play-store/releases/
+*.apk
+*.aab
+*.log
+tools/snapshots/
+screen.png
+__pycache__/
+*.pyc
+.vs/
+.env
+.env.*
+!.env.example

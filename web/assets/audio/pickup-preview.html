@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sonsuz Uçuş · Sesler</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101619;color:#eef3ef;font:15px system-ui,sans-serif}main{max-width:700px;margin:auto;padding:32px 20px}h1{font-size:26px;margin:0 0 28px}section{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:center;border-top:1px solid #34403f;padding:18px 0}b,small{display:block}b{font-weight:600}small{color:#a4b7b2;margin-top:5px}audio{width:100%;height:40px}@media(max-width:560px){section{grid-template-columns:1fr}}a{color:#a2efd1}
+</style>
+<main><h1>Sonsuz Uçuş · Yeni Sesler</h1>
+<section><div><b>Mıknatıs</b><small>magnet.wav · 0,46 sn</small></div><audio controls preload="metadata" src="magnet.wav"></audio></section>
+<section><div><b>Kalkan</b><small>shield.wav · 0,60 sn</small></div><audio controls preload="metadata" src="shield.wav"></audio></section>
+<section><div><b>Hızlanma</b><small>boost.wav · 0,55 sn</small></div><audio controls preload="metadata" src="boost.wav"></audio></section>
+<section><div><b>Yakıt</b><small>fuel.wav · 0,36 sn</small></div><audio controls preload="metadata" src="fuel.wav"></audio></section>
+<section><div><b>Kristal</b><small>coin.wav · 0,20 sn</small></div><audio controls preload="metadata" src="coin.wav"></audio></section>
+<section><div><b>Seri / başarı</b><small>perfect.wav · 0,52 sn</small></div><audio controls preload="metadata" src="perfect.wav"></audio></section>
+<section><div><b>Menü dokunuşu</b><small>tap.wav · 0,10 sn</small></div><audio controls preload="metadata" src="tap.wav"></audio></section>
+<section><div><b>Halka geçişi</b><small>Önceki düzenleme · gate_pass.wav</small></div><audio controls preload="metadata" src="gate_pass.wav"></audio></section>
+<section><div><b>Bölüm tamamlandı</b><small>Önceki düzenleme · stage_complete.wav</small></div><audio controls preload="metadata" src="stage_complete.wav"></audio></section>
+</main><script>document.addEventListener('play',e=>{for(const a of document.querySelectorAll('audio'))if(a!==e.target)a.pause()},true);document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const a of document.querySelectorAll('audio'))a.pause()});</script></html>

@@ -1,0 +1,6 @@
+Sonsuz Ucus hesap veya giris gerektirmeyen bir arcade/refleks oyunudur.
+
+Oyuna ana menuden "Sonsuz Mod" veya "Bolumler" ile baslanabilir. Kontrol tek dokunusludur: basili tutunca gemi yukselir, birakinca suzulur. Reklamlar oyun akisini kesmeyecek sekilde menu/sonuc ekranlariyla sinirlidir. Odullu reklam butonu kullanici istegiyle calisir.
+
+Uygulama kamera, mikrofon, rehber, hassas konum, SMS veya cagri kaydi izni istemez. Yerel ilerleme cihazda saklanir.
+

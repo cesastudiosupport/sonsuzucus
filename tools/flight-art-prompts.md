@@ -1,0 +1,13 @@
+# Flight Art / September 2026
+
+Generated with the built-in image_gen tool. Final images copied into the project; originals retained.
+
+## deep-space-v2.png
+
+Use case: stylized-concept. Asset type: production background bitmap for a premium 2D side-scrolling mobile spacecraft game, Sonsuz Ucus. Create one polished panoramic 1536x1024 landscape deep-space environment artwork, full bleed no UI. Cinematic hand-painted sci-fi game environment with convincing physical planetary textures, not flat vector art. A medium distant pale silver ringed planet at upper right around 70 percent x and 24 percent y, subtle warm sunlight along its upper rim, thin delicate elegant rings, rich mineral surface bands and craters. Sparse warm ivory stars and finely detailed desaturated teal interstellar dust, restrained dark graphite and charcoal space. Keep the central horizontal 35 to 70 percent height clear and relatively low contrast for an independently rendered bright ship and collectibles. Gentle distant asteroid silhouettes near very bottom edge only. High clarity, tasteful lighting, sophisticated material detail, a sense of scale. The far left and far right edges both fade to the same near-black space color for horizontal scrolling. No text, no watermark, no spaceships, no HUD, no foreground obstacles, no decorative bokeh or blobs, no purple neon, no cartoon planet, no diagram.
+
+## volcanic-cavern-v2.png
+
+Use case: stylized-concept. Production environment background for a premium 2D side-scrolling mobile spacecraft game. One full-bleed 1536x1024 landscape bitmap, NO text NO ship NO UI. A magnificent volcanic cavern seen side-on, distant layered charcoal basalt cliffs framing top and bottom edges, a narrow molten amber river far below, glints of red-hot cracks in the distant stone. Masterfully painted realistic stylized game art, cohesive refined materials and atmospheric depth, sharp mineral textures near edges, quiet open atmospheric corridor through the MIDDLE 30%-70% of image for player movement. Midground dark neutral basalt with amber bounce light, not a uniformly orange image. Small distant falls of molten metal on far right only. Calm central area, much negative space, no obstacles across central flight lane, no blobs or bokeh, no particles overlay. Dramatic but readable cinematic landscape with no horizon vanishing point, side-scrolling composition. The left and right edges have similar neutral gray-black values for horizontal scrolling. No cartoon, no vector look, no grid, no symbols.
+
+Emerald and storm generation attempts hit the image service usage limit; no new files were produced for those worlds.

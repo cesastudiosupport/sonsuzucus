@@ -1,0 +1,18 @@
+# import_audio.py tarafindan uretildi.
+# Bu dosyalar gercek kayittan geliyor, sentezle uzerine yazilmaz.
+boost.wav
+coin.wav
+engine_idle.wav
+engine_thrust.wav
+fuel.wav
+fuel_warn.wav
+ground_crash.wav
+idle_down.wav
+launch.wav
+magnet.wav
+perfect.wav
+shield.wav
+tap.wav
+thrust_on.wav
+wall_hit.wav
+warn.wav

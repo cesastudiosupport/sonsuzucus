@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ses Seçimi · Sonsuz Uçuş</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0e16; color: #e8f1ff; padding: 20px 16px 60px;
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  .sub { color: #8ea3c0; font-size: 13px; margin-bottom: 22px; line-height: 1.5; }
+  .sub b { color: #8fffd2; }
+  section { margin-bottom: 26px; }
+  h2 {
+    font-size: 13px; letter-spacing: .08em; color: #8fd8ff;
+    padding-bottom: 6px; margin-bottom: 10px;
+    border-bottom: 1px solid rgba(143,216,255,.18);
+  }
+  h2 small { display:block; color:#7d8ea8; font-size:11px; letter-spacing:0; margin-top:3px; font-weight:400; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 8px; }
+  button {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 12px; border: 1px solid rgba(143,216,255,.22);
+    border-radius: 10px; background: rgba(255,255,255,.045);
+    color: #dbe8fb; font: inherit; font-size: 12px; cursor: pointer;
+    text-align: left;
+  }
+  button:hover { background: rgba(143,216,255,.12); }
+  button.playing { border-color:#8fffd2; background: rgba(143,255,210,.16); color:#fff; }
+  button.pick { border-color:#ffd166; background: rgba(255,209,102,.16); }
+  .tag { margin-left:auto; font-size:10px; color:#7d8ea8; }
+  #picked {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    padding: 10px 16px; background: rgba(6,10,18,.96);
+    border-top: 1px solid rgba(143,216,255,.2); font-size: 12px;
+    backdrop-filter: blur(8px);
+  }
+  #picked b { color: #ffd166; }
+  .hint { color:#7d8ea8; font-size:11px; margin-top:6px; }
+</style>
+</head>
+<body>
+<h1>Ses Seçimi</h1>
+<p class="sub">
+  Kenney Sci-Fi Sounds paketi · <b>CC0</b> (kamu malı, ticari kullanıma açık).<br>
+  Dinlemek için tıkla. Beğendiğini <b>çift tıkla</b> — aşağıda listelenir.
+  Sonra o listeyi bana yaz, oyuna bağlayayım.
+</p>
+
+<div id="app"></div>
+
+<div id="picked">Seçilen: <b id="pickList">yok</b>
+  <div class="hint">Motor sesleri döngü olarak çalar; kapatmak için tekrar tıkla.</div>
+</div>
+
+<script>
+const GROUPS = [
+  { title: 'MOTOR — RÖLANTİ', note: 'Uçarken sürekli duyulan taban ses. Sakin ve derin olmalı.',
+    loop: true, files: ['spaceEngineLow_000','spaceEngineLow_001','spaceEngineLow_002','spaceEngineLow_003','spaceEngineLow_004','spaceEngine_000','spaceEngine_001','spaceEngine_002','spaceEngine_003','spaceEngineSmall_000','spaceEngineSmall_001','spaceEngineSmall_002','spaceEngineSmall_003','spaceEngineSmall_004'] },
+  { title: 'MOTOR — İTİŞ', note: 'Parmağını basılı tuttuğunda. Rölantiden güçlü ve parlak olmalı.',
+    loop: true, files: ['thrusterFire_000','thrusterFire_001','thrusterFire_002','thrusterFire_003','thrusterFire_004','spaceEngineLarge_000','spaceEngineLarge_001','spaceEngineLarge_002','spaceEngineLarge_003','spaceEngineLarge_004','engineCircular_000','engineCircular_001','engineCircular_002','engineCircular_003','engineCircular_004'] },
+  { title: 'DUVARA ÇARPMA', note: 'Kısa, sert metalik darbe.',
+    files: ['impactMetal_000','impactMetal_001','impactMetal_002','impactMetal_003','impactMetal_004'] },
+  { title: 'YERE ÇARPMA / PATLAMA', note: 'Oyunun bittiği an. Ağır ve dolgun.',
+    files: ['explosionCrunch_000','explosionCrunch_001','explosionCrunch_002','explosionCrunch_003','explosionCrunch_004','lowFrequency_explosion_000','lowFrequency_explosion_001'] },
+  { title: 'KALKAN', note: 'Enerji kalkanı devreye girince.',
+    files: ['forceField_000','forceField_001','forceField_002','forceField_003','forceField_004'] },
+  { title: 'TOPLAMA — kristal, yakıt, mıknatıs', note: 'Kısa ve olumlu.',
+    files: ['laserSmall_000','laserSmall_001','laserSmall_002','laserSmall_003','laserSmall_004','laserRetro_000','laserRetro_001','laserRetro_002','laserRetro_003','laserRetro_004'] },
+  { title: 'ARAYÜZ — tık, kapı', note: 'Menü dokunuşları.',
+    files: ['doorOpen_000','doorOpen_001','doorOpen_002','doorClose_000','doorClose_001','doorClose_002'] },
+  { title: 'UYARI — düşük yakıt', note: 'Dikkat çekmeli ama rahatsız etmemeli.',
+    files: ['computerNoise_000','computerNoise_001','computerNoise_002','computerNoise_003','laserLarge_000','laserLarge_001'] }
+];
+
+let current = null, currentBtn = null;
+const picks = [];
+
+function render() {
+  const app = document.getElementById('app');
+  GROUPS.forEach(g => {
+    const sec = document.createElement('section');
+    const h = document.createElement('h2');
+    h.textContent = g.title;
+    const small = document.createElement('small');
+    small.textContent = g.note;
+    h.appendChild(small);
+    sec.appendChild(h);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    g.files.forEach(f => {
+      const b = document.createElement('button');
+      b.textContent = f.replace(/_/g, ' ');
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = g.loop ? 'döngü' : '▶';
+      b.appendChild(tag);
+      b.onclick = () => play(f, g.loop, b);
+      b.ondblclick = () => pick(f, b);
+      grid.appendChild(b);
+    });
+    sec.appendChild(grid);
+    app.appendChild(sec);
+  });
+}
+
+function play(name, loop, btn) {
+  if (current) { current.pause(); current = null; }
+  if (currentBtn) currentBtn.classList.remove('playing');
+  if (currentBtn === btn) { currentBtn = null; return; }
+  const a = new Audio(name + '.ogg');
+  a.loop = !!loop;
+  a.volume = 0.8;
+  a.play().catch(() => {});
+  current = a; currentBtn = btn;
+  btn.classList.add('playing');
+  if (!loop) a.onended = () => btn.classList.remove('playing');
+}
+
+function pick(name, btn) {
+  const i = picks.indexOf(name);
+  if (i >= 0) { picks.splice(i, 1); btn.classList.remove('pick'); }
+  else { picks.push(name); btn.classList.add('pick'); }
+  document.getElementById('pickList').textContent = picks.length ? picks.join(', ') : 'yok';
+}
+
+render();
+</script>
+</body>
+</html>

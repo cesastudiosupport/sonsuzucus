@@ -1,0 +1,9 @@
+Sonsuz Ucus yayinda!
+
+- Tek dokunusla akici ucus kontrolu
+- Sonsuz mod ve bolum secimi
+- Yakit, kristal, kalkan, miknatis ve overdrive sistemi
+- Envanter, hangar, XP ve rekor takibi
+- Dikey/yatay ekran destegi
+- Gelistirilmis ses, titresim ve carpma geri bildirimleri
+
