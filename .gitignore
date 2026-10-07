@@ -24,3 +24,8 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# Apple build and signing artifacts
+*.ipa
+*.xcarchive/
+*.mobileprovision

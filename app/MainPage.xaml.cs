@@ -39,6 +39,14 @@ public partial class MainPage : ContentPage
         var css = ReadEmbeddedText(assembly, "SonsuzUcus.game.css");
         var js = ReadEmbeddedText(assembly, "SonsuzUcus.flight-director.js") + "\n" + ReadEmbeddedText(assembly, "SonsuzUcus.game.js");
         var assetScript = BuildAssetScript(assembly);
+#if ANDROID
+        const string platformScript = "";
+        const string advertisingPrivacy = "Oyunda reklam göstermek için Google Mobile Ads kullanılır. Reklam kişiselleştirmesini cihazının reklam ayarlarından yönetebilirsin.";
+#else
+        // Only Android implements the native audio bridge. Other platforms use Web Audio.
+        const string platformScript = "window.nativeAudio = null; document.getElementById('rewardAdBtn').style.display = 'none'; document.getElementById('soundTestOpen').style.display = 'none'; document.getElementById('settingsHaptic').style.display = 'none';";
+        const string advertisingPrivacy = "Bu sürüm reklam veya takip SDK’sı içermez; reklam kimliğine erişmez.";
+#endif
 
         GameWebView.Source = new HtmlWebViewSource
         {
@@ -250,7 +258,7 @@ public partial class MainPage : ContentPage
                                    <h2>Gizlilik</h2>
                                    <div class="privacy-copy">
                                        <p>İlerlemen, rekorun, XP'n ve kozmetik seçimlerin yalnızca bu cihazda saklanır. Hesap açman gerekmez, bu bilgiler bir sunucuya gönderilmez.</p>
-                                       <p>Oyunda reklam göstermek için Google Mobile Ads kullanılır. Reklam kişiselleştirmesini cihazının reklam ayarlarından yönetebilirsin.</p>
+                                       <p>{{advertisingPrivacy}}</p>
                                        <p>Uygulama verisini silmek istersen cihaz ayarlarından uygulama verilerini temizlemen yeterli; kayıtlı ilerleme de bununla birlikte silinir.</p>
                                    </div>
                                    <button class="primary-btn" id="privacyOk">Anladım</button>
@@ -351,6 +359,7 @@ public partial class MainPage : ContentPage
                        })();
                        </script>
                        <script>
+                       {{platformScript}}
                        {{js}}
                        </script>
                    </body>

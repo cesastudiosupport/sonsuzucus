@@ -12,7 +12,13 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(mainPage);
+        var window = new Window(mainPage);
+#if IOS
+        window.Deactivated += (_, _) => mainPage.PauseGameAudio();
+        window.Stopped += (_, _) => mainPage.PauseGameAudio();
+        window.Activated += (_, _) => mainPage.ResumeGameAudio();
+#endif
+        return window;
     }
 }
 
